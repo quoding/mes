@@ -18,6 +18,7 @@ from app.agents.deps import MesDeps
 from app.agents.mes_agent import mes_agent
 from app.agents.routing import build_model
 from app.core.database import get_db_optional
+from app.core.ratelimit import check_rate_limit
 from app.core.redis import get_redis
 from app.services.memory import (
     redis_append_conversation,
@@ -58,16 +59,8 @@ def _sse(data: dict) -> str:
 
 
 async def _check_rate_limit(redis: aioredis.Redis, key_suffix: str) -> None:
-    """분당 요청 수 제한 — Redis INCR + EXPIRE. session_id와 IP 둘 다에 적용."""
-    key = f"mes:ratelimit:{key_suffix}"
-    count = await redis.incr(key)
-    if count == 1:
-        await redis.expire(key, _RATE_LIMIT_WINDOW)
-    if count > _RATE_LIMIT_MAX:
-        raise HTTPException(
-            status_code=429,
-            detail=f"요청이 너무 많습니다. {_RATE_LIMIT_WINDOW}초 후 다시 시도하세요.",
-        )
+    """분당 요청 수 제한 — session_id와 IP 둘 다에 적용."""
+    await check_rate_limit(redis, key_suffix, _RATE_LIMIT_MAX, _RATE_LIMIT_WINDOW)
 
 
 async def _stream_agent(
