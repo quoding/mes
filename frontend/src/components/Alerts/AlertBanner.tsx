@@ -3,8 +3,8 @@ import { useAlertStore } from "@/stores/alertStore";
 import { api } from "@/lib/api";
 
 const severityStyle: Record<string, string> = {
-  CRITICAL: "bg-[#fb7185]/10 border-[#fb7185]/40 text-[#fda4af] alert-critical-ring",
-  WARNING: "bg-[#fbbf24]/8 border-[#fbbf24]/35 text-[#fcd34d]",
+  CRITICAL: "bg-[var(--crit)]/10 border-[var(--crit)]/40 text-[var(--crit-soft)] alert-critical-ring",
+  WARNING: "bg-[var(--warn)]/8 border-[var(--warn)]/35 text-[var(--warn-soft)]",
 };
 
 export function AlertBanner() {
@@ -13,8 +13,8 @@ export function AlertBanner() {
 
   if (alerts.length === 0) {
     return (
-      <div className="glass-card flex items-center gap-2.5 p-3 text-sm text-[#64748b]">
-        <ShieldAlert size={16} className="text-[#34d399]" />
+      <div className="glass-card flex items-center gap-2.5 p-3 text-sm text-[var(--muted)]">
+        <ShieldAlert size={16} className="text-[var(--ok)]" />
         고장 전조 신호 없음 — 상관관계 패턴 정상
         <span className="dot dot-ok ml-auto" />
       </div>
@@ -35,14 +35,14 @@ export function AlertBanner() {
                 <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-current/20 border border-current">
                   {a.severity}
                 </span>
-                <span className="text-xs text-[#9ca3af]">Line {a.line_id}</span>
+                <span className="text-xs text-[var(--muted2)]">Line {a.line_id}</span>
                 <span className="text-sm font-semibold">{a.name ?? a.signature_id}</span>
-                <span className="text-xs text-[#9ca3af] flex items-center gap-1">
+                <span className="text-xs text-[var(--muted2)] flex items-center gap-1">
                   <Activity size={12} /> 신뢰도 {Math.round(a.confidence * 100)}%
                 </span>
               </div>
               {a.action && <div className="text-xs mt-1 text-[#d1d5db]">권장 조치: {a.action}</div>}
-              <div className="text-[10px] text-[#6b7280] mt-1">
+              <div className="text-[10px] text-[var(--muted)] mt-1">
                 최초 감지: {new Date(a.raised_at).toLocaleString("ko-KR")}
               </div>
             </div>

@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { useProcessStore } from "@/stores/processStore";
 import { fmtValue, paramLabel, stationLabel } from "@/lib/labels";
+import { useChartTheme } from "@/stores/themeStore";
 
 // Stable empty reference — prevents Zustand getSnapshot from returning a new
 // array every render when the buffer key doesn't exist yet (infinite loop).
@@ -48,6 +49,7 @@ export function RealtimeChart({
   const buf = useProcessStore((s) => s.buffers[key] ?? EMPTY_BUF);
   const latest = useProcessStore((s) => s.latest[key]);
   const gradId = `grad-${lineId}-${station}-${param}`;
+  const ct = useChartTheme();
 
   // Downsample for display
   const data = buf.filter((_, i) => i % 2 === 0).slice(-100);
@@ -58,20 +60,20 @@ export function RealtimeChart({
     thresholdHigh !== undefined &&
     (latest.value > thresholdHigh || latest.value < thresholdLow);
 
-  const lineColor = isAnomaly ? "#fb7185" : color;
+  const lineColor = isAnomaly ? ct.crit : color;
 
   return (
     <div className={`glass-card glass-card-hover p-3 ${isAnomaly ? "alert-critical-ring" : ""}`}>
       <div className="flex items-center justify-between mb-2 gap-2">
         <div className="min-w-0">
-          <div className="text-xs font-semibold text-[#e2e8f0] truncate">
+          <div className="text-xs font-semibold text-[var(--text)] truncate">
             {stationLabel(station)} · {paramLabel(param)}
           </div>
-          <div className="text-[10px] text-[#64748b] font-mono truncate">
+          <div className="text-[10px] text-[var(--muted)] font-mono truncate">
             {station}.{param}
           </div>
         </div>
-        <span className={`metric-num text-sm font-bold shrink-0 ${isAnomaly ? "text-[#fb7185]" : "text-white"}`}>
+        <span className={`metric-num text-sm font-bold shrink-0 ${isAnomaly ? "text-[var(--crit)]" : "text-[var(--text-strong)]"}`}>
           {latest ? `${fmtValue(latest.value)} ${unit}` : "—"}
           {isAnomaly && " ⚠️"}
         </span>
@@ -84,17 +86,17 @@ export function RealtimeChart({
               <stop offset="100%" stopColor={lineColor} stopOpacity={0.02} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1c2740" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke={ct.grid} vertical={false} />
           <XAxis
             dataKey="time"
             tickFormatter={fmtTime}
-            tick={{ fill: "#64748b", fontSize: 9 }}
+            tick={{ fill: ct.tick, fontSize: 9 }}
             interval="preserveStartEnd"
-            axisLine={{ stroke: "#1c2740" }}
+            axisLine={{ stroke: ct.grid }}
             tickLine={false}
           />
           <YAxis
-            tick={{ fill: "#64748b", fontSize: 9 }}
+            tick={{ fill: ct.tick, fontSize: 9 }}
             width={42}
             domain={["auto", "auto"]}
             axisLine={false}
@@ -102,8 +104,8 @@ export function RealtimeChart({
           />
           <Tooltip
             contentStyle={{
-              background: "rgba(13, 19, 34, 0.95)",
-              border: "1px solid #1c2740",
+              background: ct.tooltipBg,
+              border: `1px solid ${ct.tooltipBorder}`,
               borderRadius: 8,
               fontSize: 11,
             }}
@@ -113,19 +115,19 @@ export function RealtimeChart({
           {thresholdHigh !== undefined && (
             <ReferenceLine
               y={thresholdHigh}
-              stroke="#fb7185"
+              stroke={ct.crit}
               strokeDasharray="4 4"
               strokeWidth={1}
-              label={{ value: `상한 ${thresholdHigh}`, position: "insideTopRight", fill: "#fb7185", fontSize: 9 }}
+              label={{ value: `상한 ${thresholdHigh}`, position: "insideTopRight", fill: ct.crit, fontSize: 9 }}
             />
           )}
           {thresholdLow !== undefined && (
             <ReferenceLine
               y={thresholdLow}
-              stroke="#fb7185"
+              stroke={ct.crit}
               strokeDasharray="4 4"
               strokeWidth={1}
-              label={{ value: `하한 ${thresholdLow}`, position: "insideBottomRight", fill: "#fb7185", fontSize: 9 }}
+              label={{ value: `하한 ${thresholdLow}`, position: "insideBottomRight", fill: ct.crit, fontSize: 9 }}
             />
           )}
           <Area

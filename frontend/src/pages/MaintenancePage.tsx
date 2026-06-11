@@ -30,15 +30,15 @@ export default function MaintenancePage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-xl font-bold text-white">예지보전</h1>
-      <p className="text-sm text-[#6b7280]">
+      <h1 className="text-xl font-bold text-[var(--text-strong)]">예지보전</h1>
+      <p className="text-sm text-[var(--muted)]">
         과거 이상 이력 기반 통계적 패턴 매칭 + AI 리포트 생성
       </p>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Equipment list */}
         <div>
-          <h2 className="text-sm font-semibold text-[#9ca3af] mb-3 uppercase tracking-wide">
+          <h2 className="text-sm font-semibold text-[var(--muted2)] mb-3 uppercase tracking-wide">
             설비 목록
           </h2>
           <div className="space-y-2">
@@ -48,18 +48,18 @@ export default function MaintenancePage() {
               return (
                 <div
                   key={eq.id}
-                  className={`bg-[#111827] border rounded-xl p-4 flex items-center gap-4 ${
-                    urgent ? "border-yellow-700" : "border-[#1f2937]"
+                  className={`bg-[var(--surface)] border rounded-xl p-4 flex items-center gap-4 ${
+                    urgent ? "border-yellow-700" : "border-[var(--border)]"
                   }`}
                 >
-                  <Wrench size={16} className={urgent ? "text-yellow-400" : "text-[#6b7280]"} />
+                  <Wrench size={16} className={urgent ? "text-yellow-400" : "text-[var(--muted)]"} />
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-white">{eq.name}</div>
-                    <div className="text-xs text-[#6b7280]">
+                    <div className="text-sm font-medium text-[var(--text-strong)]">{eq.name}</div>
+                    <div className="text-xs text-[var(--muted)]">
                       Line {eq.line_id} / {eq.station} · {eq.total_hours.toFixed(0)}h
                     </div>
                     {eq.next_maintenance && (
-                      <div className={`text-xs mt-0.5 ${urgent ? "text-yellow-400" : "text-[#6b7280]"}`}>
+                      <div className={`text-xs mt-0.5 ${urgent ? "text-yellow-400" : "text-[var(--muted)]"}`}>
                         다음 정비: {new Date(eq.next_maintenance).toLocaleDateString("ko-KR")}
                         {days !== null && ` (${days}일 후)`}
                       </div>
@@ -84,7 +84,7 @@ export default function MaintenancePage() {
 
         {/* Reports */}
         <div>
-          <h2 className="text-sm font-semibold text-[#9ca3af] mb-3 uppercase tracking-wide">
+          <h2 className="text-sm font-semibold text-[var(--muted2)] mb-3 uppercase tracking-wide">
             예지보전 리포트
           </h2>
           <PredictiveMaintPanel />

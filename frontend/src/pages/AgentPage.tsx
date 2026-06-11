@@ -5,8 +5,8 @@ export default function AgentPage() {
   return (
     <div className="p-6 h-full flex flex-col gap-4">
       <div>
-        <h1 className="text-xl font-bold text-white">공정 AI 에이전트</h1>
-        <p className="text-sm text-[#6b7280]">
+        <h1 className="text-xl font-bold text-[var(--text-strong)]">공정 AI 에이전트</h1>
+        <p className="text-sm text-[var(--muted)]">
           공정 데이터, 이상 이력, 예지보전을 자연어로 질의합니다.
           Tool Use 기반으로 실시간 DB를 조회하여 답변합니다.
         </p>
@@ -26,9 +26,9 @@ export default function AgentPage() {
           { title: "예지보전 예측", desc: "고장 위험도 점수 + GPT 리포트 생성" },
           { title: "교대 보고서", desc: "8시간 교대 구간 공정 요약 자동 생성" },
         ].map(({ title, desc }) => (
-          <div key={title} className="bg-[#111827] border border-[#1f2937] rounded-xl p-3">
+          <div key={title} className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-3">
             <div className="text-xs font-semibold text-blue-400 mb-1">{title}</div>
-            <div className="text-xs text-[#6b7280]">{desc}</div>
+            <div className="text-xs text-[var(--muted)]">{desc}</div>
           </div>
         ))}
       </div>

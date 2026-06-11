@@ -30,13 +30,13 @@ export function AgentChat() {
   return (
     <div className="flex flex-col h-full glass-card overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1c2740]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)]">
         <div className="flex items-center gap-2">
-          <Bot size={18} className="text-[#38bdf8]" />
+          <Bot size={18} className="text-[var(--accent)]" />
           <span className="font-semibold text-sm">공정 AI 에이전트</span>
-          <span className="text-xs text-[#6b7280]">실시간 공정 데이터 분석</span>
+          <span className="text-xs text-[var(--muted)]">실시간 공정 데이터 분석</span>
         </div>
-        <button onClick={clear} className="text-[#6b7280] hover:text-white transition-colors">
+        <button onClick={clear} className="text-[var(--muted)] hover:text-[var(--text-strong)] transition-colors">
           <Trash2 size={14} />
         </button>
       </div>
@@ -44,12 +44,12 @@ export function AgentChat() {
       {/* Quick prompts */}
       {messages.length === 0 && (
         <div className="p-4 space-y-2">
-          <div className="text-xs text-[#6b7280] mb-3">빠른 질문</div>
+          <div className="text-xs text-[var(--muted)] mb-3">빠른 질문</div>
           {QUICK_PROMPTS.map((p) => (
             <button
               key={p}
               onClick={() => send(p)}
-              className="w-full text-left text-xs px-3 py-2 rounded-lg bg-[#1c2740]/70 hover:bg-[#233252] text-[#7c8db5] border border-transparent hover:border-[#38bdf8]/30 hover:text-white transition-colors"
+              className="w-full text-left text-xs px-3 py-2 rounded-lg bg-[var(--border)]/70 hover:bg-[var(--chip)] text-[var(--muted2)] border border-transparent hover:border-[var(--accent)]/30 hover:text-[var(--text-strong)] transition-colors"
             >
               {p}
             </button>
@@ -63,20 +63,20 @@ export function AgentChat() {
           <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
             <div
               className={`w-7 h-7 rounded-full shrink-0 flex items-center justify-center ${
-                msg.role === "user" ? "bg-gradient-to-br from-[#38bdf8] to-[#6366f1]" : "bg-[#1c2740]"
+                msg.role === "user" ? "bg-gradient-to-br from-[var(--accent)] to-[#6366f1]" : "bg-[var(--border)]"
               }`}
             >
               {msg.role === "user" ? (
                 <User size={14} className="text-white" />
               ) : (
-                <Bot size={14} className="text-[#38bdf8]" />
+                <Bot size={14} className="text-[var(--accent)]" />
               )}
             </div>
             <div
               className={`max-w-[80%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
                 msg.role === "user"
                   ? "bg-gradient-to-br from-[#2563eb] to-[#4f46e5] text-white whitespace-pre-wrap"
-                  : "bg-[#16203a]/80 border border-[#1c2740] text-[#e2e8f0] markdown-body"
+                  : "bg-[var(--card2)]/80 border border-[var(--border)] text-[var(--text)] markdown-body"
               }`}
             >
               {msg.role === "user" ? (
@@ -85,7 +85,7 @@ export function AgentChat() {
                 <ReactMarkdown>{msg.content}</ReactMarkdown>
               )}
               {msg.streaming && (
-                <span className="inline-block w-1.5 h-4 bg-[#38bdf8] ml-1 animate-pulse" />
+                <span className="inline-block w-1.5 h-4 bg-[var(--accent)] ml-1 animate-pulse" />
               )}
             </div>
           </div>
@@ -94,12 +94,12 @@ export function AgentChat() {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSubmit} className="p-3 border-t border-[#1c2740] flex gap-2">
+      <form onSubmit={handleSubmit} className="p-3 border-t border-[var(--border)] flex gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="공정 데이터에 대해 질문하세요…"
-          className="flex-1 bg-[#0d1322] border border-[#1c2740] rounded-lg px-3 py-2 text-sm text-white placeholder-[#64748b] outline-none focus:border-[#38bdf8]/50 focus:ring-1 focus:ring-[#38bdf8]/30 transition-colors"
+          className="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--text-strong)] placeholder-[var(--muted)] outline-none focus:border-[var(--accent)]/50 focus:ring-1 focus:ring-[var(--accent)]/30 transition-colors"
           disabled={isStreaming}
         />
         {isStreaming ? (
@@ -114,7 +114,7 @@ export function AgentChat() {
           <button
             type="submit"
             disabled={!input.trim()}
-            className="px-3 py-2 rounded-lg bg-gradient-to-br from-[#38bdf8] to-[#6366f1] hover:opacity-90 disabled:opacity-40 text-white transition-opacity"
+            className="px-3 py-2 rounded-lg bg-gradient-to-br from-[var(--accent)] to-[#6366f1] hover:opacity-90 disabled:opacity-40 text-white transition-opacity"
           >
             <Send size={14} />
           </button>

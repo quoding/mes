@@ -23,10 +23,10 @@ function LiveClock() {
   }, []);
   return (
     <div className="text-right">
-      <div className="metric-num text-lg font-bold text-white leading-tight">
+      <div className="metric-num text-lg font-bold text-[var(--text-strong)] leading-tight">
         {now.toLocaleTimeString("ko-KR", { hour12: false })}
       </div>
-      <div className="text-[10px] text-[#64748b]">
+      <div className="text-[10px] text-[var(--muted)]">
         {now.toLocaleDateString("ko-KR", { month: "long", day: "numeric", weekday: "short" })}
       </div>
     </div>
@@ -88,10 +88,10 @@ export default function DashboardPage() {
       {/* ── Header ── */}
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">
+          <h1 className="text-xl font-bold text-[var(--text-strong)] tracking-tight">
             PNT Smart Factory Monitor
           </h1>
-          <p className="text-xs text-[#64748b] mt-0.5">
+          <p className="text-xs text-[var(--muted)] mt-0.5">
             롤투롤 2차전지 전극 공정 — 실시간 설비 모니터링 · 고장 전조 탐지
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
                 wsStatus === "connected" ? "dot dot-ok" : wsStatus === "connecting" ? "dot dot-warn" : "dot dot-crit"
               }
             />
-            <span className="text-[#7c8db5]">
+            <span className="text-[var(--muted2)]">
               {wsStatus === "connected" ? "실시간 연결" : wsStatus === "connecting" ? "연결 중…" : "연결 끊김"}
             </span>
           </div>
@@ -112,8 +112,8 @@ export default function DashboardPage() {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold
               transition-all duration-150 disabled:opacity-50 border
               ${running
-                ? "bg-[#fb7185]/10 text-[#fb7185] border-[#fb7185]/30 hover:bg-[#fb7185]/20"
-                : "bg-[#34d399]/10 text-[#34d399] border-[#34d399]/30 hover:bg-[#34d399]/20"
+                ? "bg-[var(--crit)]/10 text-[var(--crit)] border-[var(--crit)]/30 hover:bg-[var(--crit)]/20"
+                : "bg-[var(--ok)]/10 text-[var(--ok)] border-[var(--ok)]/30 hover:bg-[var(--ok)]/20"
               }`}
           >
             {running ? <Square size={12} /> : <Play size={12} />}
@@ -172,10 +172,10 @@ export default function DashboardPage() {
         <div className="xl:col-span-3">
           <h2 className="section-title mb-3">Line 1 — 핵심 파라미터 실시간</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <RealtimeChart lineId={1} station="coating" param="coating_thickness" thresholdLow={80} thresholdHigh={120} unit="μm" color="#38bdf8" />
+            <RealtimeChart lineId={1} station="coating" param="coating_thickness" thresholdLow={80} thresholdHigh={120} unit="μm" color="var(--accent)" />
             <RealtimeChart lineId={1} station="coating" param="slurry_viscosity" thresholdLow={3000} thresholdHigh={5000} unit="cP" color="#a78bfa" />
-            <RealtimeChart lineId={1} station="coating" param="dry_temp_zone2" thresholdLow={100} thresholdHigh={130} unit="°C" color="#fbbf24" />
-            <RealtimeChart lineId={1} station="coating" param="tension_supply" thresholdLow={30} thresholdHigh={50} unit="N" color="#34d399" />
+            <RealtimeChart lineId={1} station="coating" param="dry_temp_zone2" thresholdLow={100} thresholdHigh={130} unit="°C" color="var(--warn)" />
+            <RealtimeChart lineId={1} station="coating" param="tension_supply" thresholdLow={30} thresholdHigh={50} unit="N" color="var(--ok)" />
             <RealtimeChart lineId={1} station="calendering" param="roll_pressure" thresholdLow={200} thresholdHigh={400} unit="kN/m" color="#818cf8" />
             <RealtimeChart lineId={1} station="calendering" param="electrode_density" thresholdLow={1.5} thresholdHigh={1.8} unit="g/cm³" color="#f472b6" />
           </div>

@@ -64,9 +64,9 @@ export function ProcessFlow({ lineId, running }: { lineId: number; running: bool
   return (
     <div className="glass-card px-4 py-3">
       <div className="flex items-center gap-3 mb-3">
-        <span className="text-xs font-bold text-white">Line {lineId}</span>
-        <span className="text-[10px] text-[#64748b]">롤투롤 전극 공정</span>
-        <span className={`ml-auto text-[10px] ${running ? "text-[#34d399]" : "text-[#64748b]"}`}>
+        <span className="text-xs font-bold text-[var(--text-strong)]">Line {lineId}</span>
+        <span className="text-[10px] text-[var(--muted)]">롤투롤 전극 공정</span>
+        <span className={`ml-auto text-[10px] ${running ? "text-[var(--ok)]" : "text-[var(--muted)]"}`}>
           {running ? "● RUNNING" : "○ STOPPED"}
         </span>
       </div>
@@ -87,22 +87,22 @@ export function ProcessFlow({ lineId, running }: { lineId: number; running: bool
               <div
                 className={`flex-1 min-w-0 rounded-lg border px-3 py-2 transition-colors ${
                   status === "crit"
-                    ? "border-[#fb7185]/50 bg-[#fb7185]/10 alert-critical-ring"
+                    ? "border-[var(--crit)]/50 bg-[var(--crit)]/10 alert-critical-ring"
                     : status === "warn"
-                      ? "border-[#fbbf24]/40 bg-[#fbbf24]/5"
-                      : "border-[#1c2740] bg-[#0d1322]/60"
+                      ? "border-[var(--warn)]/40 bg-[var(--warn)]/5"
+                      : "border-[var(--border)] bg-[var(--surface)]/60"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <Icon size={14} className={status === "idle" ? "text-[#475569]" : "text-[#38bdf8]"} />
-                  <span className="text-xs font-semibold text-white truncate">{st.name}</span>
+                  <Icon size={14} className={status === "idle" ? "text-[var(--muted)]" : "text-[var(--accent)]"} />
+                  <span className="text-xs font-semibold text-[var(--text-strong)] truncate">{st.name}</span>
                   <span className={`ml-auto ${dotClass[status]}`} />
                 </div>
-                <div className="metric-num text-sm font-bold text-[#e2e8f0] mt-1">
+                <div className="metric-num text-sm font-bold text-[var(--text)] mt-1">
                   {reading && running ? fmtValue(reading.value) : "—"}
-                  <span className="text-[10px] font-normal text-[#64748b] ml-1">{st.unit}</span>
+                  <span className="text-[10px] font-normal text-[var(--muted)] ml-1">{st.unit}</span>
                 </div>
-                <div className="text-[10px] text-[#64748b] truncate">{st.desc}</div>
+                <div className="text-[10px] text-[var(--muted)] truncate">{st.desc}</div>
               </div>
               {i < STATIONS.length - 1 && (
                 <div className="w-6 shrink-0 px-1">

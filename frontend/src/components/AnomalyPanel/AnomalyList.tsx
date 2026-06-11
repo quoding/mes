@@ -5,20 +5,20 @@ import { fmtValue, paramLabel, patternLabel, stationLabel } from "@/lib/labels";
 const severityConfig = {
   CRITICAL: {
     icon: AlertCircle,
-    color: "text-[#fb7185]",
-    bg: "bg-[#fb7185]/8 border-[#fb7185]/30",
-    badge: "bg-[#fb7185]/90",
+    color: "text-[var(--crit)]",
+    bg: "bg-[var(--crit)]/8 border-[var(--crit)]/30",
+    badge: "bg-[var(--crit)]/90",
   },
   WARNING: {
     icon: AlertTriangle,
-    color: "text-[#fbbf24]",
-    bg: "bg-[#fbbf24]/6 border-[#fbbf24]/25",
+    color: "text-[var(--warn)]",
+    bg: "bg-[var(--warn)]/6 border-[var(--warn)]/25",
     badge: "bg-[#d97706]",
   },
   INFO: {
     icon: Info,
-    color: "text-[#38bdf8]",
-    bg: "bg-[#38bdf8]/6 border-[#38bdf8]/25",
+    color: "text-[var(--accent)]",
+    bg: "bg-[var(--accent)]/6 border-[var(--accent)]/25",
     badge: "bg-[#0284c7]",
   },
 };
@@ -33,7 +33,7 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
 
   if (visible.length === 0) {
     return (
-      <div className="glass-card flex items-center justify-center h-24 text-[#64748b] text-sm gap-2">
+      <div className="glass-card flex items-center justify-center h-24 text-[var(--muted)] text-sm gap-2">
         <span className="dot dot-ok" /> 이상 이벤트 없음
       </div>
     );
@@ -61,13 +61,13 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
                 <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${cfg.badge} text-white`}>
                   {ev.severity}
                 </span>
-                <span className="text-xs text-[#9ca3af]">Line {ev.line_id}</span>
-                <span className="text-xs text-[#e5e7eb]">
+                <span className="text-xs text-[var(--muted2)]">Line {ev.line_id}</span>
+                <span className="text-xs text-[var(--text)]">
                   {stationLabel(ev.station)} · {paramLabel(ev.param)}
                 </span>
               </div>
-              <div className="text-xs text-[#9ca3af] mt-1">
-                측정값 <span className="text-white font-mono">{fmtValue(ev.value)}</span>
+              <div className="text-xs text-[var(--muted2)] mt-1">
+                측정값 <span className="text-[var(--text-strong)] font-mono">{fmtValue(ev.value)}</span>
                 {ev.threshold_high !== null && (
                   <span className="ml-2">
                     정상범위 {ev.threshold_low?.toFixed(1)}~{ev.threshold_high?.toFixed(1)}
@@ -76,7 +76,7 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
                 <span className="ml-2">{time}</span>
               </div>
               {ev.pattern_type && (
-                <div className="text-xs text-[#6b7280] mt-0.5">{patternLabel(ev.pattern_type)}</div>
+                <div className="text-xs text-[var(--muted)] mt-0.5">{patternLabel(ev.pattern_type)}</div>
               )}
             </div>
           </div>
