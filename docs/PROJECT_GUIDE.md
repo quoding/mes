@@ -59,7 +59,6 @@ ProcessSimulator (0.5초마다)
 | LLM | **OpenAI gpt-5.4-nano / gpt-5.4-mini** | nano: 빠르고 단순한 질의, mini: 복잡한 분석/리포트 생성 (자동 라우팅) |
 | 수치 분석 | **NumPy, SciPy(stats.pearsonr)** | 평균/표준편차/추세(기울기)/자기상관/피어슨 상관계수 계산 |
 | 머신러닝 | **scikit-learn (IsolationForest)** | 다변량 이상치 탐지 (배치) |
-| 마이그레이션 | **Alembic** | DB 스키마 버전 관리 |
 | 컨테이너 | **Docker Compose** | 4개 서비스 오케스트레이션 |
 
 ---
