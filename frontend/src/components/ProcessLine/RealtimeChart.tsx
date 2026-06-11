@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useProcessStore } from "@/stores/processStore";
+import { fmtValue, paramLabel, stationLabel } from "@/lib/labels";
 
 // Stable empty reference — prevents Zustand getSnapshot from returning a new
 // array every render when the buffer key doesn't exist yet (infinite loop).
@@ -58,12 +59,17 @@ export function RealtimeChart({
 
   return (
     <div className="bg-[#111827] border border-[#1f2937] rounded-xl p-3">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-[#9ca3af] font-mono">
-          {station}.{param}
-        </span>
-        <span className={`text-sm font-bold ${isAnomaly ? "text-red-400" : "text-white"}`}>
-          {latest ? `${latest.value.toFixed(2)} ${unit}` : "—"}
+      <div className="flex items-center justify-between mb-2 gap-2">
+        <div className="min-w-0">
+          <div className="text-xs font-semibold text-[#e5e7eb] truncate">
+            {stationLabel(station)} · {paramLabel(param)}
+          </div>
+          <div className="text-[10px] text-[#6b7280] font-mono truncate">
+            {station}.{param}
+          </div>
+        </div>
+        <span className={`text-sm font-bold tabular-nums shrink-0 ${isAnomaly ? "text-red-400" : "text-white"}`}>
+          {latest ? `${fmtValue(latest.value)} ${unit}` : "—"}
           {isAnomaly && " ⚠️"}
         </span>
       </div>
@@ -84,13 +90,25 @@ export function RealtimeChart({
           <Tooltip
             contentStyle={{ background: "#111827", border: "1px solid #1f2937", fontSize: 11 }}
             labelFormatter={fmtTime}
-            formatter={(v: number) => [`${v.toFixed(3)} ${unit}`, param]}
+            formatter={(v: number) => [`${fmtValue(v)} ${unit}`, paramLabel(param)]}
           />
           {thresholdHigh !== undefined && (
-            <ReferenceLine y={thresholdHigh} stroke="#ef4444" strokeDasharray="4 4" strokeWidth={1} />
+            <ReferenceLine
+              y={thresholdHigh}
+              stroke="#ef4444"
+              strokeDasharray="4 4"
+              strokeWidth={1}
+              label={{ value: `상한 ${thresholdHigh}`, position: "insideTopRight", fill: "#f87171", fontSize: 9 }}
+            />
           )}
           {thresholdLow !== undefined && (
-            <ReferenceLine y={thresholdLow} stroke="#ef4444" strokeDasharray="4 4" strokeWidth={1} />
+            <ReferenceLine
+              y={thresholdLow}
+              stroke="#ef4444"
+              strokeDasharray="4 4"
+              strokeWidth={1}
+              label={{ value: `하한 ${thresholdLow}`, position: "insideBottomRight", fill: "#f87171", fontSize: 9 }}
+            />
           )}
           <Line
             type="monotone"

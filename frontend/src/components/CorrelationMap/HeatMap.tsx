@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { CorrelationPair } from "@/types/mes";
+import { paramLabel } from "@/lib/labels";
 
 interface HeatMapProps {
   lineId?: number;
@@ -40,16 +41,26 @@ export function HeatMap({ lineId = 1, station = "coating" }: HeatMapProps) {
             {pair.r.toFixed(2)}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-mono text-[#e5e7eb] truncate">
-              {pair.param_a} ↔ {pair.param_b}
+            <div className="text-xs text-[#e5e7eb] truncate">
+              {paramLabel(pair.param_a)} ↔ {paramLabel(pair.param_b)}
             </div>
             <div className="text-xs text-[#6b7280]">{pair.interpretation}</div>
           </div>
-          <div className={`text-xs ${pair.p_value < 0.05 ? "text-green-400" : "text-[#6b7280]"}`}>
+          <div
+            className={`text-xs shrink-0 ${pair.p_value < 0.05 ? "text-green-400" : "text-[#6b7280]"}`}
+            title={`p-value: ${pair.p_value.toExponential(2)}`}
+          >
             {pair.p_value < 0.05 ? "유의" : "비유의"}
           </div>
         </div>
       ))}
+      {/* 색상 범례 */}
+      <div className="flex items-center gap-3 pt-2 mt-1 border-t border-[#1f2937] text-[10px] text-[#6b7280]">
+        <span>상관 강도:</span>
+        <span className="flex items-center gap-1"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: "#dc2626" }} /> 강한 양(+)</span>
+        <span className="flex items-center gap-1"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: "#2563eb" }} /> 강한 음(−)</span>
+        <span className="flex items-center gap-1"><i className="w-3 h-3 rounded-sm inline-block" style={{ background: "#374151" }} /> 약함</span>
+      </div>
     </div>
   );
 }

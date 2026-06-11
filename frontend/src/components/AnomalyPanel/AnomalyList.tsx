@@ -1,5 +1,6 @@
 import { AlertTriangle, AlertCircle, Info } from "lucide-react";
 import type { AnomalyEvent } from "@/types/mes";
+import { fmtValue, paramLabel, patternLabel, stationLabel } from "@/lib/labels";
 
 const severityConfig = {
   CRITICAL: {
@@ -61,21 +62,21 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
                   {ev.severity}
                 </span>
                 <span className="text-xs text-[#9ca3af]">Line {ev.line_id}</span>
-                <span className="text-xs font-mono text-[#e5e7eb]">
-                  {ev.station}.{ev.param}
+                <span className="text-xs text-[#e5e7eb]">
+                  {stationLabel(ev.station)} · {paramLabel(ev.param)}
                 </span>
               </div>
               <div className="text-xs text-[#9ca3af] mt-1">
-                측정값: <span className="text-white font-mono">{ev.value.toFixed(3)}</span>
+                측정값 <span className="text-white font-mono">{fmtValue(ev.value)}</span>
                 {ev.threshold_high !== null && (
                   <span className="ml-2">
-                    범위: {ev.threshold_low?.toFixed(1)} ~ {ev.threshold_high?.toFixed(1)}
+                    정상범위 {ev.threshold_low?.toFixed(1)}~{ev.threshold_high?.toFixed(1)}
                   </span>
                 )}
                 <span className="ml-2">{time}</span>
               </div>
               {ev.pattern_type && (
-                <div className="text-xs text-[#6b7280] mt-0.5">패턴: {ev.pattern_type}</div>
+                <div className="text-xs text-[#6b7280] mt-0.5">{patternLabel(ev.pattern_type)}</div>
               )}
             </div>
           </div>

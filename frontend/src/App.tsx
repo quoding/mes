@@ -44,12 +44,10 @@ export default function App() {
               </NavLink>
             ))}
           </nav>
-          <div className="p-4 border-t border-[#1f2937] text-xs text-[#6b7280]">
-            <div>gpt-5.4-mini / nano</div>
-            <div className="flex items-center gap-1 mt-1">
-              <span className="w-2 h-2 rounded-full bg-green-500 inline-block"></span>
-              <span>시뮬레이터 가동 중</span>
-            </div>
+          <div className="p-4 border-t border-[#1f2937] text-xs text-[#6b7280] space-y-0.5">
+            <div>설비 모니터링 · 고장 전조 탐지</div>
+            <div>4-Layer Anomaly Detection</div>
+            <div className="text-[#4b5563]">LLM: gpt-5.4-mini / nano</div>
           </div>
         </aside>
 

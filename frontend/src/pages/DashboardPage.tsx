@@ -41,7 +41,7 @@ export default function DashboardPage() {
 
   const { data: anomalySummary } = useQuery({
     queryKey: ["anomaly-summary"],
-    queryFn: () => api.get("/anomaly/summary", { params: { hours: 8 } }).then((r) => r.data),
+    queryFn: () => api.get("/anomaly/summary", { params: { hours: 24 } }).then((r) => r.data),
     refetchInterval: 30_000,
   });
 
@@ -100,15 +100,15 @@ export default function DashboardPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <KpiCard
           title="Line 1 가동"
-          value="가동 중"
-          status="ok"
+          value={simStatus?.running ? "가동 중" : "정지"}
+          status={simStatus?.running ? "ok" : "warn"}
           sub="코팅 → 캘린더링 → 슬리팅 → 권취"
         />
         <KpiCard
           title="Line 2 가동"
-          value="가동 중"
-          status="ok"
-          sub="정상 범위 내"
+          value={simStatus?.running ? "가동 중" : "정지"}
+          status={simStatus?.running ? "ok" : "warn"}
+          sub="코팅 → 캘린더링 → 슬리팅 → 권취"
         />
         <KpiCard
           title="이상 (24h)"
@@ -120,7 +120,7 @@ export default function DashboardPage() {
           title="예지보전 위험"
           value={criticalCount > 0 ? "고위험" : warningCount > 0 ? "중위험" : "정상"}
           status={criticalCount > 0 ? "critical" : warningCount > 0 ? "warn" : "ok"}
-          sub="AI 분석 기반"
+          sub="24h 이상 빈도 기반"
         />
       </div>
 
