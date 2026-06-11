@@ -11,7 +11,7 @@ const navItems = [
   { to: "/process", icon: BarChart2, label: "공정 모니터" },
   { to: "/anomaly", icon: AlertTriangle, label: "이상 탐지" },
   { to: "/maintenance", icon: Wrench, label: "예지보전" },
-  { to: "/agent", icon: Bot, label: "MES 에이전트" },
+  { to: "/agent", icon: Bot, label: "AI 에이전트" },
 ];
 
 export default function App() {
@@ -22,7 +22,7 @@ export default function App() {
         <aside className="w-56 shrink-0 bg-[#111827] border-r border-[#1f2937] flex flex-col">
           <div className="px-4 py-5 border-b border-[#1f2937]">
             <div className="text-xs font-bold text-[#6b7280] tracking-widest uppercase">PNT</div>
-            <div className="text-lg font-bold text-white leading-tight">Smart MES</div>
+            <div className="text-lg font-bold text-white leading-tight">Factory Monitor</div>
             <div className="text-xs text-[#6b7280]">롤투롤 2차전지 공정</div>
           </div>
           <nav className="flex-1 p-3 space-y-1">

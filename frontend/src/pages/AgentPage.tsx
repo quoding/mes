@@ -5,7 +5,7 @@ export default function AgentPage() {
   return (
     <div className="p-6 h-full flex flex-col gap-4">
       <div>
-        <h1 className="text-xl font-bold text-white">MES AI 에이전트</h1>
+        <h1 className="text-xl font-bold text-white">공정 AI 에이전트</h1>
         <p className="text-sm text-[#6b7280]">
           공정 데이터, 이상 이력, 예지보전을 자연어로 질의합니다.
           Tool Use 기반으로 실시간 DB를 조회하여 답변합니다.

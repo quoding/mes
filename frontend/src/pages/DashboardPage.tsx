@@ -61,7 +61,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-white">PNT Smart Factory MES</h1>
+          <h1 className="text-xl font-bold text-white">PNT Smart Factory Monitor</h1>
           <p className="text-sm text-[#6b7280]">롤투롤 2차전지 전극 제조공정 모니터링</p>
         </div>
         <div className="flex items-center gap-4">
@@ -169,7 +169,7 @@ export default function DashboardPage() {
 
         <div className="xl:col-span-1 h-96">
           <h2 className="text-sm font-semibold text-[#9ca3af] mb-3 uppercase tracking-wide">
-            MES AI 에이전트
+            공정 AI 에이전트
           </h2>
           <div className="h-[360px]">
             <AgentChat />
