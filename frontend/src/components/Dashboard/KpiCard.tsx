@@ -4,23 +4,51 @@ interface KpiCardProps {
   unit?: string;
   status?: "ok" | "warn" | "critical";
   sub?: string;
+  /** 최근 값 배열 — 있으면 미니 스파크라인 표시 */
+  spark?: number[];
 }
 
 const statusColor = {
-  ok: "text-green-400",
-  warn: "text-yellow-400",
-  critical: "text-red-400",
+  ok: "text-[#34d399]",
+  warn: "text-[#fbbf24]",
+  critical: "text-[#fb7185]",
 };
 
-export function KpiCard({ title, value, unit, status = "ok", sub }: KpiCardProps) {
+const sparkStroke = { ok: "#34d399", warn: "#fbbf24", critical: "#fb7185" };
+
+function Sparkline({ values, stroke }: { values: number[]; stroke: string }) {
+  if (values.length < 2) return null;
+  const w = 72, h = 26;
+  const min = Math.min(...values), max = Math.max(...values);
+  const span = max - min || 1;
+  const pts = values
+    .map((v, i) => `${((i / (values.length - 1)) * w).toFixed(1)},${(h - ((v - min) / span) * (h - 4) - 2).toFixed(1)}`)
+    .join(" ");
   return (
-    <div className="bg-[#111827] border border-[#1f2937] rounded-xl p-4">
-      <div className="text-xs text-[#6b7280] uppercase tracking-wide mb-1">{title}</div>
-      <div className={`text-3xl font-bold ${statusColor[status]}`}>
-        {value}
-        {unit && <span className="text-lg font-normal text-[#9ca3af] ml-1">{unit}</span>}
+    <svg width={w} height={h} className="opacity-70">
+      <polyline points={pts} fill="none" stroke={stroke} strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function KpiCard({ title, value, unit, status = "ok", sub, spark }: KpiCardProps) {
+  return (
+    <div className={`glass-card glass-card-hover p-4 ${status === "critical" ? "alert-critical-ring" : ""}`}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <div className="text-[11px] text-[#7c8db5] tracking-wide mb-1">{title}</div>
+          <div className={`metric-num text-2xl font-bold ${statusColor[status]}`}>
+            {value}
+            {unit && <span className="text-sm font-normal text-[#64748b] ml-1">{unit}</span>}
+          </div>
+          {sub && <div className="text-[10px] text-[#64748b] mt-1 truncate">{sub}</div>}
+        </div>
+        {spark && spark.length > 1 && (
+          <div className="shrink-0 mt-1">
+            <Sparkline values={spark} stroke={sparkStroke[status]} />
+          </div>
+        )}
       </div>
-      {sub && <div className="text-xs text-[#6b7280] mt-1">{sub}</div>}
     </div>
   );
 }

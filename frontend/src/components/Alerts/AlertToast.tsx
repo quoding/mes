@@ -24,7 +24,7 @@ export function AlertToastContainer() {
         return (
           <div
             key={t.toastId}
-            className={`p-3 rounded-lg border shadow-lg backdrop-blur ${
+            className={`p-3 rounded-lg border shadow-lg backdrop-blur fade-in-up ${
               isResolved
                 ? "bg-green-900/80 border-green-700 text-green-200"
                 : t.severity === "CRITICAL"

@@ -5,21 +5,21 @@ import { fmtValue, paramLabel, patternLabel, stationLabel } from "@/lib/labels";
 const severityConfig = {
   CRITICAL: {
     icon: AlertCircle,
-    color: "text-red-400",
-    bg: "bg-red-900/20 border-red-800",
-    badge: "bg-red-500",
+    color: "text-[#fb7185]",
+    bg: "bg-[#fb7185]/8 border-[#fb7185]/30",
+    badge: "bg-[#fb7185]/90",
   },
   WARNING: {
     icon: AlertTriangle,
-    color: "text-yellow-400",
-    bg: "bg-yellow-900/20 border-yellow-800",
-    badge: "bg-yellow-500",
+    color: "text-[#fbbf24]",
+    bg: "bg-[#fbbf24]/6 border-[#fbbf24]/25",
+    badge: "bg-[#d97706]",
   },
   INFO: {
     icon: Info,
-    color: "text-blue-400",
-    bg: "bg-blue-900/20 border-blue-800",
-    badge: "bg-blue-500",
+    color: "text-[#38bdf8]",
+    bg: "bg-[#38bdf8]/6 border-[#38bdf8]/25",
+    badge: "bg-[#0284c7]",
   },
 };
 
@@ -33,8 +33,8 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
 
   if (visible.length === 0) {
     return (
-      <div className="flex items-center justify-center h-24 text-[#6b7280] text-sm">
-        이상 이벤트 없음 ✅
+      <div className="glass-card flex items-center justify-center h-24 text-[#64748b] text-sm gap-2">
+        <span className="dot dot-ok" /> 이상 이벤트 없음
       </div>
     );
   }
@@ -53,7 +53,7 @@ export function AnomalyList({ events, maxItems = 20 }: AnomalyListProps) {
         return (
           <div
             key={ev.id ?? i}
-            className={`flex items-start gap-3 p-3 rounded-lg border ${cfg.bg}`}
+            className={`flex items-start gap-3 p-3 rounded-xl border backdrop-blur fade-in-up ${cfg.bg}`}
           >
             <Icon size={16} className={`${cfg.color} shrink-0 mt-0.5`} />
             <div className="flex-1 min-w-0">

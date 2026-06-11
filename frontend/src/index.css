@@ -1,29 +1,102 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pnt-bg: #0a0e1a;
-  --color-pnt-surface: #111827;
-  --color-pnt-border: #1f2937;
-  --color-pnt-accent: #3b82f6;
-  --color-pnt-green: #10b981;
-  --color-pnt-yellow: #f59e0b;
-  --color-pnt-red: #ef4444;
-  --color-pnt-text: #e5e7eb;
-  --color-pnt-muted: #6b7280;
+  --color-pnt-bg: #070b14;
+  --color-pnt-surface: #0d1322;
+  --color-pnt-card: #101830;
+  --color-pnt-border: #1c2740;
+  --color-pnt-accent: #38bdf8;
+  --color-pnt-indigo: #6366f1;
+  --color-pnt-green: #34d399;
+  --color-pnt-yellow: #fbbf24;
+  --color-pnt-red: #fb7185;
+  --color-pnt-text: #e2e8f0;
+  --color-pnt-muted: #64748b;
 }
 
 body {
-  background-color: var(--color-pnt-bg);
   color: var(--color-pnt-text);
-  font-family: "Inter", "Noto Sans KR", sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", "Inter", "Noto Sans KR", sans-serif;
+  background-color: var(--color-pnt-bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(56, 189, 248, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 0%, rgba(99, 102, 241, 0.07), transparent);
+  background-attachment: fixed;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--color-pnt-bg); }
-::-webkit-scrollbar-thumb { background: var(--color-pnt-border); border-radius: 3px; }
+/* ── Surfaces ── */
+.glass-card {
+  background: linear-gradient(180deg, rgba(23, 32, 56, 0.72), rgba(13, 19, 34, 0.85));
+  border: 1px solid rgba(56, 80, 130, 0.28);
+  border-radius: 0.9rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(148, 163, 184, 0.06);
+}
+.glass-card-hover { transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+.glass-card-hover:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 24px rgba(56, 189, 248, 0.06);
+}
 
-/* Markdown rendering for agent chat messages */
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7c8db5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(56, 80, 130, 0.4), transparent);
+}
+
+/* ── Status glow dots ── */
+.dot { width: 8px; height: 8px; border-radius: 9999px; display: inline-block; }
+.dot-ok { background: #34d399; box-shadow: 0 0 8px rgba(52, 211, 153, 0.8); }
+.dot-warn { background: #fbbf24; box-shadow: 0 0 8px rgba(251, 191, 36, 0.8); }
+.dot-crit { background: #fb7185; box-shadow: 0 0 8px rgba(251, 113, 133, 0.9); animation: blink 1s ease-in-out infinite; }
+.dot-idle { background: #475569; }
+
+@keyframes blink { 50% { opacity: 0.35; } }
+
+/* ── Process flow conveyor ── */
+.flow-track {
+  height: 2px;
+  background-image: linear-gradient(90deg, rgba(56, 189, 248, 0.9) 0 6px, transparent 6px 14px);
+  background-size: 14px 2px;
+  animation: conveyor 0.8s linear infinite;
+}
+.flow-track-paused { animation-play-state: paused; opacity: 0.25; }
+@keyframes conveyor { to { background-position-x: 14px; } }
+
+/* ── Number ticker feel ── */
+.metric-num { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+/* ── Fade-in for new alerts ── */
+.fade-in-up { animation: fadeInUp 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } }
+
+/* ── Critical alert ambient pulse ── */
+.alert-critical-ring {
+  animation: critRing 2s ease-in-out infinite;
+}
+@keyframes critRing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0); }
+  50% { box-shadow: 0 0 28px 2px rgba(251, 113, 133, 0.18); }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #233252; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2f4368; }
+
+/* ── Markdown (agent chat) ── */
 .markdown-body p { margin: 0 0 0.5em; white-space: pre-wrap; }
 .markdown-body p:last-child { margin-bottom: 0; }
 .markdown-body ul, .markdown-body ol { margin: 0 0 0.5em 1.25em; }
@@ -37,10 +110,10 @@ body {
 .markdown-body h2 { font-size: 1.05em; }
 .markdown-body h3 { font-size: 1em; }
 .markdown-body code {
-  background: #0a0e1a; border-radius: 4px; padding: 0.1em 0.3em; font-size: 0.85em;
+  background: #070b14; border-radius: 4px; padding: 0.1em 0.3em; font-size: 0.85em;
 }
 .markdown-body pre {
-  background: #0a0e1a; border-radius: 6px; padding: 0.6em; overflow-x: auto; margin: 0.5em 0;
+  background: #070b14; border-radius: 6px; padding: 0.6em; overflow-x: auto; margin: 0.5em 0;
 }
 .markdown-body pre code { background: none; padding: 0; }
 .markdown-body strong { color: #fff; }

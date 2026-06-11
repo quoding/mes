@@ -3,8 +3,8 @@ import { useAlertStore } from "@/stores/alertStore";
 import { api } from "@/lib/api";
 
 const severityStyle: Record<string, string> = {
-  CRITICAL: "bg-red-900/20 border-red-800 text-red-300",
-  WARNING: "bg-yellow-900/20 border-yellow-800 text-yellow-300",
+  CRITICAL: "bg-[#fb7185]/10 border-[#fb7185]/40 text-[#fda4af] alert-critical-ring",
+  WARNING: "bg-[#fbbf24]/8 border-[#fbbf24]/35 text-[#fcd34d]",
 };
 
 export function AlertBanner() {
@@ -13,9 +13,10 @@ export function AlertBanner() {
 
   if (alerts.length === 0) {
     return (
-      <div className="flex items-center gap-2 p-3 rounded-lg border border-[#1f2937] bg-[#111827] text-sm text-[#6b7280]">
-        <ShieldAlert size={16} />
+      <div className="glass-card flex items-center gap-2.5 p-3 text-sm text-[#64748b]">
+        <ShieldAlert size={16} className="text-[#34d399]" />
         고장 전조 신호 없음 — 상관관계 패턴 정상
+        <span className="dot dot-ok ml-auto" />
       </div>
     );
   }
@@ -27,7 +28,7 @@ export function AlertBanner() {
   return (
     <div className="space-y-2">
       {alerts.map((a) => (
-        <div key={a.id} className={`p-3 rounded-lg border ${severityStyle[a.severity] ?? severityStyle.WARNING}`}>
+        <div key={a.id} className={`p-3 rounded-xl border backdrop-blur fade-in-up ${severityStyle[a.severity] ?? severityStyle.WARNING}`}>
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">

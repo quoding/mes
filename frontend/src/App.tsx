@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import { Activity, AlertTriangle, BarChart2, Wrench, Bot } from "lucide-react";
+import { Activity, AlertTriangle, BarChart2, Wrench, Bot, Hexagon } from "lucide-react";
 import DashboardPage from "@/pages/DashboardPage";
 import ProcessPage from "@/pages/ProcessPage";
 import AnomalyPage from "@/pages/AnomalyPage";
@@ -17,13 +17,20 @@ const navItems = [
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="flex h-screen bg-[#0a0e1a] text-[#e5e7eb] overflow-hidden">
+      <div className="flex h-screen text-[#e2e8f0] overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-56 shrink-0 bg-[#111827] border-r border-[#1f2937] flex flex-col">
-          <div className="px-4 py-5 border-b border-[#1f2937]">
-            <div className="text-xs font-bold text-[#6b7280] tracking-widest uppercase">PNT</div>
-            <div className="text-lg font-bold text-white leading-tight">Factory Monitor</div>
-            <div className="text-xs text-[#6b7280]">롤투롤 2차전지 공정</div>
+        <aside className="w-56 shrink-0 bg-[#0d1322]/80 backdrop-blur-md border-r border-[#1c2740] flex flex-col">
+          <div className="px-4 py-5 border-b border-[#1c2740]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#38bdf8] to-[#6366f1] flex items-center justify-center shadow-[0_0_16px_rgba(56,189,248,0.35)]">
+                <Hexagon size={18} className="text-white" strokeWidth={2.4} />
+              </div>
+              <div>
+                <div className="text-[10px] font-bold text-[#38bdf8] tracking-[0.2em]">PNT</div>
+                <div className="text-sm font-bold text-white leading-tight">Factory Monitor</div>
+              </div>
+            </div>
+            <div className="text-[10px] text-[#64748b] mt-2">롤투롤 2차전지 전극 공정</div>
           </div>
           <nav className="flex-1 p-3 space-y-1">
             {navItems.map(({ to, icon: Icon, label }) => (
@@ -32,10 +39,10 @@ export default function App() {
                 to={to}
                 end={to === "/"}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                  `relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-[#9ca3af] hover:bg-[#1f2937] hover:text-white"
+                      ? "bg-gradient-to-r from-[#38bdf8]/15 to-transparent text-white font-medium before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-0.5 before:rounded-full before:bg-[#38bdf8]"
+                      : "text-[#7c8db5] hover:bg-[#1c2740]/60 hover:text-white"
                   }`
                 }
               >
@@ -44,9 +51,9 @@ export default function App() {
               </NavLink>
             ))}
           </nav>
-          <div className="p-4 border-t border-[#1f2937] text-xs text-[#6b7280] space-y-0.5">
-            <div>설비 모니터링 · 고장 전조 탐지</div>
-            <div>4-Layer Anomaly Detection</div>
+          <div className="p-4 border-t border-[#1c2740] text-[10px] text-[#64748b] space-y-0.5 leading-relaxed">
+            <div className="text-[#7c8db5] font-medium">4-Layer Anomaly Detection</div>
+            <div>Z-score · EWMA · iForest · 상관 시그니처</div>
           </div>
         </aside>
 
