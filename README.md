@@ -76,7 +76,7 @@ ProcessSimulator (0.5초/틱, 물리 인과결합 인코딩)
 |---|---|
 | Backend | FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL 16 + TimescaleDB · Redis 7 |
 | 분석/ML | NumPy · SciPy · scikit-learn (Isolation Forest) |
-| AI | Pydantic AI · OpenAI gpt-5.4-nano/mini (복잡도 기반 자동 라우팅) |
+| AI | Pydantic AI · OpenAI gpt-5.4-nano (비용 최적화를 위한 경량 단일 모델) |
 | Frontend | React 19 · TypeScript · Vite · Zustand · TanStack Query · Recharts · TailwindCSS |
 | Infra | Docker Compose (4 컨테이너) |
 

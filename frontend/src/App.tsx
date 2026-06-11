@@ -47,7 +47,6 @@ export default function App() {
           <div className="p-4 border-t border-[#1f2937] text-xs text-[#6b7280] space-y-0.5">
             <div>설비 모니터링 · 고장 전조 탐지</div>
             <div>4-Layer Anomaly Detection</div>
-            <div className="text-[#4b5563]">LLM: gpt-5.4-mini / nano</div>
           </div>
         </aside>
 

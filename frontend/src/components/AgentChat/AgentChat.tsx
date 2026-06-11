@@ -34,7 +34,7 @@ export function AgentChat() {
         <div className="flex items-center gap-2">
           <Bot size={18} className="text-blue-400" />
           <span className="font-semibold text-sm">PNT MES 에이전트</span>
-          <span className="text-xs text-[#6b7280]">gpt-5.4-mini/nano</span>
+          <span className="text-xs text-[#6b7280]">실시간 공정 데이터 분석</span>
         </div>
         <button onClick={clear} className="text-[#6b7280] hover:text-white transition-colors">
           <Trash2 size={14} />

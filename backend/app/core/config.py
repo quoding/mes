@@ -21,9 +21,8 @@ class Settings(BaseSettings):
     environment: str = "development"
     log_level: str = "info"
 
-    # OpenAI
+    # OpenAI — 비용 절감을 위해 nano 단일 모델 사용
     openai_model_default: str = "gpt-5.4-nano"
-    openai_model_complex: str = "gpt-5.4-mini"
 
     # Postgres
     postgres_host: str = "localhost"

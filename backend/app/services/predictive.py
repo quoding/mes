@@ -4,7 +4,7 @@ No vector DB required. Instead:
 1. Extract rolling statistics (features) from current sensor data.
 2. Search anomaly_events history for similar past patterns (parameter range filter).
 3. Rank candidates by normalized Euclidean distance.
-4. Inject top-3 similar cases as context into GPT-mini to generate a report.
+4. Inject top-3 similar cases as context into the LLM to generate a report.
 
 This mimics RAG semantics without embeddings — the "retrieval" is statistical
 pattern matching, and the "generation" is LLM synthesis of retrieved context.
@@ -155,7 +155,7 @@ async def _fetch_similar_cases(
 async def _generate_llm_report(
     equipment, risk_score: float, similar_cases: list[dict], current_features: dict
 ) -> str:
-    """Use GPT-mini to synthesize a predictive maintenance report."""
+    """Use the LLM to synthesize a predictive maintenance report."""
     from openai import AsyncOpenAI
     client = AsyncOpenAI(api_key=settings.openai_api_key)
 

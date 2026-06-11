@@ -91,7 +91,7 @@ async def _stream_agent(
             async with asyncio.timeout(_AGENT_TIMEOUT_SECS):
                 async with mes_agent.run_stream(
                     message,
-                    model=build_model(message),  # 메시지 복잡도에 따라 nano/mini 라우팅
+                    model=build_model(message),  # nano 단일 모델 (비용 절감)
                     deps=deps,
                     message_history=history,
                 ) as result:

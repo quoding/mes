@@ -32,7 +32,7 @@ export default function MaintenancePage() {
     <div className="p-6 space-y-6">
       <h1 className="text-xl font-bold text-white">예지보전</h1>
       <p className="text-sm text-[#6b7280]">
-        과거 이상 이력 기반 통계적 패턴 매칭 + GPT-5.4-nano 리포트 생성
+        과거 이상 이력 기반 통계적 패턴 매칭 + AI 리포트 생성
       </p>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
